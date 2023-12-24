@@ -6,4 +6,4 @@ services:
       context: .
       dockerfile: Dockerfile
     volumes:
-      - ./app:/var/www/html
+      - .:/var/www/html

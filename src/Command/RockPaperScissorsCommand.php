@@ -1,6 +1,6 @@
 <?php
 
-    namespace App\Command;
+    namespace project;
 
     use Symfony\Component\Console\Command\Command;
     use Symfony\Component\Console\Input\InputInterface;
@@ -13,13 +13,13 @@
         const SCISSORS = "Scissors";
 
 
-        protected function configure()
+        protected function configure():void
         {
             $this->setName('rps:play')
                 ->setDescription('Play Rock, Paper, Scissors game');
         }
 
-        protected function execute(InputInterface $input, OutputInterface $output)
+        protected function execute(InputInterface $input, OutputInterface $output):string
         {
             $playerMove = $this->getUserMove($input, $output);
 
