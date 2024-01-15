@@ -3,7 +3,6 @@ version: "3.8"
 networks:
   nginx-php-mysql:
 
-
 services:
 
   php:
@@ -16,7 +15,7 @@ services:
     ports:
       - "9000:9000"
     volumes:
-      - .:/var/www/html
+      - ./:/var/www/html
 
   nginx-service:
     image: nginx:stable-alpine
