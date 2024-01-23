@@ -9,6 +9,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class PostController extends AbstractController
 {
+
     #[Route('post/description' , name: 'read_description')]
     public function description(Request $request): Response
     {
