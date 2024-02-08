@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Play a new game{% endblock %}
+
+{%block body %}
+    <style>
+        .form-select{
+            width:200px;
+            margin-bottom: 13px;
+        }
+    </style>
+
+    <head>
+        <title>Rock Paper Scissors</title>
+    </head>
+    <body>
+    <h1>Rock Paper Scissors</h1>
+    <form method="post" action="{{ path('game_play') }}">
+            <label for="exampleSelect1" class="form-label mt-4">Choose: [r]ock, [p]aper, [s]cissors:</label>
+            <select class="form-select" id="exampleSelect1">
+                <option>rock</option>
+                <option>paper</option>
+                <option>scissors</option>
+            </select>
+        <button type="button" class="btn btn-primary">Play</button>
+    </form>
+
+{#    <div>#}
+{#        <p>{{ result }}</p>#}
+{#    </div>#}
+    </body>
+{% endblock %}
+

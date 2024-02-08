@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}My Result{% endblock %}
+
+{%block body %}
+    <head>
+        <title>Game Result</title>
+    </head>
+    <body>
+    <h1>Game Result</h1>
+    <p>{{ result }}</p>
+    <a href="{{ path('playing_game') }}">Play Again</a>
+    </body>
+
+{% endblock %}

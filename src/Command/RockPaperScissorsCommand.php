@@ -39,8 +39,9 @@ class RockPaperScissorsCommand extends Command
 
     private function getUserMove(InputInterface $input, OutputInterface $output)
     {
+        $helper = $this->getHelper('question');
         $question = new Question('Choose: [r]ock, [p]aper, [s]cissors: ');
-        $inputText = $this->getHelper('question')->ask($input, $output, $question);
+        $inputText = $helper->ask($input, $output, $question);
 
         return $this->convertInputToMove($inputText);
     }
