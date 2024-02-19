@@ -47,18 +47,11 @@ class RockPaperScissorsCommand extends Command
     }
 
     private function getComputerMove(){
-        $computerRandomNumber = rand(1, 3);
-
-        switch ($computerRandomNumber) {
-            case 1:
-                return self::ROCK;
-            case 2:
-                return self::PAPER;
-            case 3:
-                return self::SCISSORS;
+        {
+            $moves = [self::ROCK, self::PAPER, self::SCISSORS];
+            $randomIndex = array_rand($moves);
+            return $moves[$randomIndex];
         }
-
-        return null; // Handle invalid case
     }
 
     private function convertInputToMove($input)
@@ -78,17 +71,34 @@ class RockPaperScissorsCommand extends Command
         }
     }
 
-    private function determineWinner(OutputInterface $output, $playerMove, $computerMove){
-        if (($playerMove === self::ROCK && $computerMove === self::SCISSORS)
-            || ($playerMove === self::SCISSORS && $computerMove === self::PAPER)
-            || ($playerMove === self::PAPER && $computerMove === self::ROCK)) {
-            $output->writeln("You win.");
-        } elseif (($playerMove === self::SCISSORS && $computerMove === self::ROCK)
-            || ($playerMove === self::PAPER && $computerMove === self::SCISSORS)
-            || ($playerMove === self::ROCK && $computerMove === self::PAPER)) {
-            $output->writeln("You lose.");
-        } else {
+    private function determineWinner(OutputInterface $output, $playerMove, $computerMove)
+    {
+        //Instead of directly checking if the door is open and then deciding
+        // whether to go through, I try first to approach the door and then to make
+        // decisions based on its properties
+
+        $choices = [
+            'rock' => ['scissors' => 'You win.', 'paper' => 'You lose.'],
+            'paper' => ['rock' => 'You win.', 'scissors' => 'You lose.'],
+            'scissors' => ['paper' => 'You win.', 'rock' => 'You lose.']
+        ];
+
+        // Ignore typing mistake - or is it not necessary??
+        $playerMove = strtolower($playerMove);
+        $computerMove = strtolower($computerMove);
+
+        // Check if moves are valid
+        if (!isset($outcomes[$playerMove]) || !isset($outcomes[$computerMove])) {
+            $output->writeln("Invalid moves. No result.");
+            return;
+        }
+
+        // Show the result
+        if ($playerMove === $computerMove) {
             $output->writeln("This game was a draw.");
+        } else {
+            $result = $outcomes[$playerMove][$computerMove];
+            $output->writeln($result);
         }
     }
 }
