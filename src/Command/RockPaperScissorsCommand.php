@@ -23,9 +23,9 @@ class RockPaperScissorsCommand extends Command
     {
         $playerMove=$this->getPlayerMove($input,$output);
 
-        if ($playerMove === null) {
-            return Command::FAILURE;
-        }
+//        if ($playerMove === null) {
+//            return Command::FAILURE;
+//        }
 
         $computerMove = $this->getComputerMove();
         $output->writeln("You chose: $playerMove");
@@ -33,14 +33,12 @@ class RockPaperScissorsCommand extends Command
 
         $this->determineWinner($output, $playerMove, $computerMove);
         return Command::SUCCESS;
-
-
     }
 
     private function getPlayerMove(InputInterface $input, OutputInterface $output)
     {
         $helper = $this->getHelper('question');
-        $question = new Question('Choose: [r]ock, [p]aper, [s]cissors: ');
+        $question = new Question('Choose: rock, paper, scissors: ');
         $inputText = $helper->ask($input, $output, $question);
 
         return $this->convertInputToMove($inputText);
@@ -56,36 +54,32 @@ class RockPaperScissorsCommand extends Command
 
     private function convertInputToMove($input)
     {
-        switch (strtolower($input)) {
-            case "r":
-            case "rock":
-                return self::ROCK;
-            case "p":
-            case "paper":
-                return self::PAPER;
-            case "s":
-            case "scissors":
-                return self::SCISSORS;
-            default:
-                return null;
-        }
+        return match (strtolower($input)) {
+            "rock" => self::ROCK,
+            "paper" => self::PAPER,
+            "scissors" => self::SCISSORS,
+            default => null,
+        };
     }
 
-    private function validateMove($move)
+    private function validateMove($move): bool
     {
         return in_array(strtolower($move), ['rock', 'paper', 'scissors']);
     }
 
-    private function determineWinner(OutputInterface $output, $playerMove, $computerMove)
+    private function determineWinner(OutputInterface $output, $playerMove, $computerMove): void
     {
 
+        // Validate player and computer moves!Still not works
         if (!$this->validateMove($playerMove) || !$this->validateMove($computerMove)) {
-            return "Invalid moves. No result.";
+            $output->writeln("Invalid moves. No result.");
+            return;
         }
 
         //Instead of directly checking if the door is open and then deciding
         // whether to go through, I try first to approach the door and then to make
         // decisions based on its properties
+        //Game logic
 
         $choices = [
             'rock' => ['scissors' => 'You win.', 'paper' => 'You lose.'],
