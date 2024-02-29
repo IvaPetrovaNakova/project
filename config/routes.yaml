@@ -3,9 +3,3 @@ controllers:
         path: ../src/Controller/
         namespace: App\Controller
     type: attribute
-
-# config/routes.yaml
-
-game_play:
-    path: /play
-    controller: App\Controller\GameController::play

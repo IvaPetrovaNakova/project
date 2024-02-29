@@ -21,7 +21,7 @@ class RockPaperScissorsCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $playerMove=$this->getUserMove($input,$output);
+        $playerMove=$this->getPlayerMove($input,$output);
 
         if ($playerMove === null) {
             return Command::FAILURE;
@@ -37,7 +37,7 @@ class RockPaperScissorsCommand extends Command
 
     }
 
-    private function getUserMove(InputInterface $input, OutputInterface $output)
+    private function getPlayerMove(InputInterface $input, OutputInterface $output)
     {
         $helper = $this->getHelper('question');
         $question = new Question('Choose: [r]ock, [p]aper, [s]cissors: ');
@@ -67,12 +67,22 @@ class RockPaperScissorsCommand extends Command
             case "scissors":
                 return self::SCISSORS;
             default:
-                return null; // Handle invalid input
+                return null;
         }
+    }
+
+    private function validateMove($move)
+    {
+        return in_array(strtolower($move), ['rock', 'paper', 'scissors']);
     }
 
     private function determineWinner(OutputInterface $output, $playerMove, $computerMove)
     {
+
+        if (!$this->validateMove($playerMove) || !$this->validateMove($computerMove)) {
+            return "Invalid moves. No result.";
+        }
+
         //Instead of directly checking if the door is open and then deciding
         // whether to go through, I try first to approach the door and then to make
         // decisions based on its properties
@@ -87,17 +97,12 @@ class RockPaperScissorsCommand extends Command
         $playerMove = strtolower($playerMove);
         $computerMove = strtolower($computerMove);
 
-        // Check if moves are valid
-        if (!isset($outcomes[$playerMove]) || !isset($outcomes[$computerMove])) {
-            $output->writeln("Invalid moves. No result.");
-            return;
-        }
 
         // Show the result
         if ($playerMove === $computerMove) {
             $output->writeln("This game was a draw.");
         } else {
-            $result = $outcomes[$playerMove][$computerMove];
+            $result = $choices[$playerMove][$computerMove];
             $output->writeln($result);
         }
     }

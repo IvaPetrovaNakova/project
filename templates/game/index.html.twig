@@ -16,8 +16,12 @@
 
     <section class="playground">
         <article>
-            <h2>My Results</h2>
+            <h1>Rock Paper Scissors</h1>
+            <form method="post" action="{{ path('playing_game') }}">
+                <label for="move">Choose: [r]ock, [p]aper, [s]cissors:</label>
+                <input type="text" id="move" name="move">
+                <button type="submit">Submit</button>
+            </form>
         </article>
-
     </section>
 {% endblock %}

@@ -15,19 +15,18 @@
     </head>
     <body>
     <h1>Rock Paper Scissors</h1>
-    <form method="post" action="{{ path('game_play') }}">
-            <label for="exampleSelect1" class="form-label mt-4">Choose: [r]ock, [p]aper, [s]cissors:</label>
-            <select class="form-select" id="exampleSelect1">
-                <option>rock</option>
-                <option>paper</option>
-                <option>scissors</option>
-            </select>
-        <button type="button" class="btn btn-primary">Play</button>
-    </form>
-
-{#    <div>#}
-{#        <p>{{ result }}</p>#}
-{#    </div>#}
+        <p>You chose: {{ playerMove }}</p>
+        <p>The computer chose: {{ computerMove }}</p>
+        <p>{{ result }}</p>
+{#    <form method="post" action="{{ path('game_play') }}">#}
+{#            <label for="exampleSelect1" class="form-label mt-4">Choose: [r]ock, [p]aper, [s]cissors:</label>#}
+{#            <select class="form-select" id="exampleSelect1">#}
+{#                <option>rock</option>#}
+{#                <option>paper</option>#}
+{#                <option>scissors</option>#}
+{#            </select>#}
+{#        <button type="button" class="btn btn-primary">Play</button>#}
+{#    </form>#}
     </body>
 {% endblock %}
 
