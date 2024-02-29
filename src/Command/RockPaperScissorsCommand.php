@@ -70,7 +70,7 @@ class RockPaperScissorsCommand extends Command
     private function determineWinner(OutputInterface $output, $playerMove, $computerMove): void
     {
 
-        // Validate player and computer moves!Still not works
+        // Validate player moves! What is the good practise -here or in execute function, unable the Command FAILURE
         if (!$this->validateMove($playerMove) || !$this->validateMove($computerMove)) {
             $output->writeln("Invalid moves. No result.");
             return;
@@ -80,17 +80,14 @@ class RockPaperScissorsCommand extends Command
         // whether to go through, I try first to approach the door and then to make
         // decisions based on its properties
         //Game logic
-
         $choices = [
             'rock' => ['scissors' => 'You win.', 'paper' => 'You lose.'],
             'paper' => ['rock' => 'You win.', 'scissors' => 'You lose.'],
             'scissors' => ['paper' => 'You win.', 'rock' => 'You lose.']
         ];
 
-        // Ignore typing mistake - or is it not necessary??
         $playerMove = strtolower($playerMove);
         $computerMove = strtolower($computerMove);
-
 
         // Show the result
         if ($playerMove === $computerMove) {
